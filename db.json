@@ -25,9 +25,9 @@
       "available": true
     },
     {
-      "name": "Test",
-      "price": 9999,
-      "quantity": 100,
+      "name": "Mahdi",
+      "price": 120,
+      "quantity": 120,
       "selected": true,
       "available": true,
       "id": 4

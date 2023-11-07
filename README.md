@@ -263,12 +263,96 @@ readonly DataStateEnum=DataStateEnum // c'est pour rendre la class enum accessib
 ## ss
 
 https://www.youtube.com/watch?v=f67pl7imX8k&list=PLlxnHhzx9q8B0USj0wSpPfwHEogCj3ZxV&index=4 >> youssfu angular 11
-https://www.youtube.com/watch?v=WEY0e_cfpjQ
-https://www.youtube.com/watch?v=RjKPKRm55J8
 https://www.youtube.com/watch?v=rjyFuSb-JU0  >> tupac 
 https://www.youtube.com/watch?v=RnLF3yzVOg8&list=PL7JmcZV0UQtUHQi7kWAI2t3JGWkKaAR9z&index=5 >> Angular CRUD | Local Storage | angular tutorial | angular tutorial for beginners
 
 https://www.youtube.com/watch?v=sqldEbeDLh8 >> Kubernetes et Docker, c'est quoi la différence?
+
+## Décomposition
+
+ProductsComponent
+    ProductNavBarComponent
+    ProductsListComponent
+        ProductItemComponent
+
+# Steat Management
+Ngrx est une librairie qui implément le désign du redux en utilisant la programmation réactive 
+basée sur **rxjs**
+
+Ngrx permet à une application Angular de **centraliser l'état** de l'application dans un unique **objet**
+
+**RXJS = RéactifX** : Un standard de comment faire la programmation **réactive**
+
+tout les composants de l'application peuvent accèder facilement à l'état de l'application d'une maniére réactive
+
+chaque composant peut faire une **soubscription** aux donnée du state dont il a besoins en utilisant des **sélécteurs**
+
+**sélécteurs** ::un composant il as besoin de souscrire un abonnement uniquement sur une partie de state 
+
+A chaque fois que les données du state changent le composant est mis à jour d'une maniére réactive (Real Time)
+
+Ce mécanisme de NgRx propose des mécanismes puissant alternatifs aux solutions classiques fournies 
+par Angular tels que 
+    * @Input et @Output : permetent de communiquer les web composant mais qui s'avère parfois 
+    complexe pour une grande application
+    * Les services qui peuvent être utiliser pour partager les données de l'application et aussi 
+    les traitements pour l'ensembles de composants web de l'application
+
+## fonctionnement state management
+1
+- quand il as un evenement qui se produit dans un **composant** ce dérnier emettre une **Action**
+- store : gérer le state (contient les données) c'est un servce
+- on demande au store de dispatcher une action à un autre composant
+- **action** est recu par un composant **reducer**(écouteur d evenemtent)
+- c'est le seul qui peut modifier le state
+2
+- **EffectS** ecouteur d'action pour gérer les services
+- **EffectS** fais appel aux services
+- **EffectS** recois les résultat de service
+- **EffectS** ensuite il déclance une autre **action**
+3
+- component va faire une subscribe su state
+exemple >>>>
+une fois une action est émit depuis un composant 
+le reduceur est decloncher il récupere les parametre de l'action
+recupere le state actuel aprés il produit un nouveau state de l'application
+automatiquement lorsque le state change 
+le composant va le recevoir d'aprés
+
+exemple 2 selecteur
+
+--parfois en veut qu d'couter qu une parti en utilisant le selector
+- le selector unu composant qui fais partie de ngrx, pour ecouter qu une partie du state
+
+## #########################
+ngrx est une implémentation du pattern Redux en utilisant la librairie rxjs
+
+1-store objet javascript il contient l'état du (state) de l'application, le stet est un obj javascript 
+**immutable** : quand peut pas modifier
+!!!on peut que cloner le state dans un obj puis le modifier est le pulier aprés
+
+2-web components : tout les composant web de l'app qui souhaite utiliser une partie de l'état  de l'app
+soit souscrire un abonnement  dans le store
+
+3-seleceteur permettre  à un composant d'observer des partie du state au lien d'oserver tout la state
+
+4-Action ce sont des événement  émis par votre application au niveau des composants
+il définit deux attributs:type : {type: d'événement en string,payload: contient les paramétre de l'action}
+
+5 - reducer = on lui donne l acton+ current state il contact le store est retoure le nouveau state
+reducer = ecouteur d'evenement (d'action) , il recoivent le state actuel et les action dispatcher par le store
+en fonction de type et payload le reducer retourne n nouveau state
+
+le state de l'app contient l'historique des différents changements du state
+
+6 - effects un observateur d'un certain type d'actions aui faudrat intercepter pour faire appel
+a des services qui sont souvent utiliser pour interagirent avec le backend entraine 
+un evenement (success or error) ouis il dispatche une autre action vers l'intercepteur pou mettre ajour le state 
+
+7 - entities : faciliter la gestion des collections d'entités du state, 
+ngrx fournit un mécanisme qui permet d'ajouter et recherche mettre a jour et supprimer des entité du state
+de l'appication en utilisant EntityFactory 
+
 
 
 
